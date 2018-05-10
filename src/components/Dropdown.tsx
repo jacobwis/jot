@@ -50,11 +50,9 @@ class Dropdown extends React.Component<Props, State> {
   };
 
   public onSelect = (option: DropdownOption) => {
-    if (this.props.value) {
-      if (this.props.onSelect) {
-        this.props.onSelect(option);
-      }
-    } else {
+    this.props.onSelect && this.props.onSelect(option);
+
+    if (!this.props.value) {
       this.setState({ selected: option });
     }
   };
