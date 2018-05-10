@@ -6,6 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script src="/fontawesome-all.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+    $(document).on('mq4hsChange', function (e) {
+    $(document.documentElement).toggleClass('true-hover', e.trueHover);
+    });
+  </script>
 </head>
 <body>
   <div id="root"></div>

@@ -1,0 +1,72 @@
+.Button {
+  border-radius: 3px;
+  font-size: 15px;
+  height: 42px;
+  padding: 0 12px;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.Button--primary {
+  --main-color: #{$color-primary};
+  --hover-color: #{$color-primary--dark};
+}
+
+.Button--secondary {
+  --main-color: #{hsl(0, 0, 70)};
+  --hover-color: #{hsl(0, 0, 60)};
+}
+
+.Button--solid {
+  border: 0;
+  background-color: var(--main-color);
+  color: #fff;
+
+  @include hover {
+    background-color: var(--hover-color);
+  }
+
+  @include active {
+    background-color: var(--main-color);
+  }
+}
+
+.Button--outline {
+  border: 1.5px solid var(--main-color);
+  color: var(--main-color);
+
+  @include hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+    color: #fff;
+  }
+
+  @include active {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+  }
+}
+
+.Button--link {
+  border: 0;
+  color: var(--main-color);
+  padding: 0;
+
+  @include hover {
+    color: var(--hover-color);
+  }
+
+  @include active {
+    color: var(--main-color);
+  }
+}
+
+.Button__icon-left {
+  margin-right: 8px;
+}
+
+.Button__icon-right {
+  margin-left: 8px;
+}

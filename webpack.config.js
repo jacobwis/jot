@@ -8,6 +8,7 @@ module.exports = {
     contentBase: [path.resolve(__dirname, 'dist'), path.resolve(__dirname, 'public')],
     hot: true,
     host: '0.0.0.0',
+    overlay: true,
     port: 3000
   },
   entry: './src/index.tsx',

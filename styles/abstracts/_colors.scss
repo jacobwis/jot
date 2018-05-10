@@ -1,0 +1,10 @@
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+$color-primary: #25c599;
+$color-primary--dark: shade($color-primary, 5);
