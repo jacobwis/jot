@@ -5,7 +5,9 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   devServer: {
     compress: true,
+    contentBase: [path.resolve(__dirname, 'dist'), path.resolve(__dirname, 'public')],
     hot: true,
+    host: '0.0.0.0',
     port: 3000
   },
   entry: './src/index.tsx',

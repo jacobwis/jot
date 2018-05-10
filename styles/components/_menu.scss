@@ -1,0 +1,33 @@
+.Menu {
+  background-color: #fff;
+  border: 1px solid hsl(0, 0, 90);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  min-width: 150px;
+}
+
+.MenuItem > * {
+  background-color: transparent;
+  border: 0;
+  color: hsl(0, 0, 50);
+  cursor: default;
+  display: inline-block;
+  font-size: 15px;
+  padding: 8px 16px;
+  text-align: left;
+  user-select: none;
+  width: 100%;
+
+  &:hover {
+    background-color: hsl(0, 0, 95);
+  }
+
+  &:active {
+    background-color: transparent;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}

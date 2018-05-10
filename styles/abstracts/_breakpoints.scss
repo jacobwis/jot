@@ -1,0 +1,37 @@
+$breakpoint-xs: 480px;
+$breakpoint-sm: 600px;
+$breakpoint-md: 840px;
+$breakpoint-lg: 960px;
+$breakpoint-xl: 1280px;
+
+$breakpoints: (
+  'xs': $breakpoint-xs,
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg,
+  'xl': $breakpoint-xl
+);
+
+@mixin min-width($breakpoint) {
+  $query: map-get($breakpoints, $breakpoint);
+
+  @if $query {
+    @media (min-width: #{$query}) {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. ' + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+@mixin max-width($breakpoint) {
+  $query: map-get($breakpoints, $breakpoint);
+
+  @if $query {
+    @media (max-width: #{$query}) {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. ' + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
