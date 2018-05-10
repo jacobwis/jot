@@ -1,0 +1,6 @@
+enum TypeKeys {
+  UPDATE_DOCUMENT_CONTENTS = 'DOCUMENT:UPDATE',
+  UPDATE_DOCUMENT_TITLE = 'DOCUMENT:UPDATE_TITLE'
+}
+
+export default TypeKeys;

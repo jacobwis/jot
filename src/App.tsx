@@ -1,36 +1,28 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
+import { connect } from 'react-redux';
 import MainLayout from './components/MainLayout';
+import DocumentEditor from './containers/ConnectedDocumentEditor';
+import { AppState, Document } from './store';
 
-interface State {
-  error?: Error;
-  errorInfo?: React.ErrorInfo;
+interface Props {
+  selectedDocument: Document;
 }
 
-class App extends React.Component<{}, State> {
-  public state: State = {};
-
-  public componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    this.setState({
-      error,
-      errorInfo
-    });
-  }
+class App extends React.Component<Props> {
   public render() {
-    if (this.state.error) {
-      return (
-        <div>
-          <h1>Something went strong</h1>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
-            {this.state.error.toString()}
-            <br />
-            {this.state.errorInfo.componentStack}
-          </details>
-        </div>
-      );
-    }
-    return <MainLayout />;
+    return (
+      <MainLayout>
+        <DocumentEditor />
+      </MainLayout>
+    );
   }
 }
 
-export default hot(module)(App);
+const mapStateToProps = (state: AppState) => ({
+  selectedDocument: state.documents.documents[state.documents.selectedID]
+});
+
+const connectedApp = connect(mapStateToProps)(App);
+
+export default hot(module)(connectedApp);

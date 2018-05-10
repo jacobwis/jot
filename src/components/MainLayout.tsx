@@ -86,6 +86,7 @@ class MainLayout extends React.Component<{}, State> {
             </div>
             <Toolbar />
           </div>
+          <div className="MainLayout__content">{this.props.children}</div>
         </div>
       </div>
     );
