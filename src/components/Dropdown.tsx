@@ -1,9 +1,11 @@
 import * as React from 'react';
+import Button from './Button';
 import Menu from './Menu';
 
 export interface DropdownOption {
   key: string;
-  label: string;
+  label: (() => React.ReactNode) | React.ReactNode;
+  buttonLabel?: (() => React.ReactNode) | React.ReactNode;
 }
 
 interface Props {
@@ -57,21 +59,32 @@ class Dropdown extends React.Component<Props, State> {
     }
   };
 
+  public renderLabel = (label: (() => React.ReactNode) | React.ReactNode) => {
+    return typeof label === 'function' ? label() : label;
+  };
+
   public render() {
+    const { selected } = this.state;
     return (
       <div className="Dropdown">
-        <button className="Dropdown__button" onClick={this.showMenu}>
-          {this.state.selected.label}
-          <span>
-            <i className="fas fa-caret-down" />
-          </span>
-        </button>
+        <Button
+          iconRight={() => <i className="fas fa-caret-down" />}
+          onClick={this.showMenu}
+          theme="secondary"
+          type="link"
+        >
+          {selected.buttonLabel
+            ? this.renderLabel(selected.buttonLabel)
+            : this.renderLabel(selected.label)}
+        </Button>
         {this.state.isOpen && (
           <div className="Dropdown__menu">
             <Menu>
               {this.props.options.map(option => (
                 <Menu.Item key={option.key}>
-                  <button onClick={() => this.onSelect(option)}>{option.label}</button>
+                  <button onClick={() => this.onSelect(option)}>
+                    {typeof option.label === 'function' ? option.label() : option.label}
+                  </button>
                 </Menu.Item>
               ))}
             </Menu>

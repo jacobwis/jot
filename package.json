@@ -59,6 +59,7 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.0.19",
     "classnames": "^2.2.5",
     "mq4-hover-shim": "^0.3.0",
     "react": "^16.3.2",

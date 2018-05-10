@@ -5,21 +5,11 @@
 }
 
 .Toolbar__button {
-  background-color: transparent;
-  border: 0;
-  color: hsl(0, 0, 60);
-  font-size: 15px;
-  padding: 4px;
+  padding: 0 2px;
+}
 
-  &:hover {
-    color: hsl(0, 0, 40);
-  }
-
-  &:active {
-    color: hsl(0, 0, 60);
-  }
-
-  &:focus {
-    outline: 0;
-  }
+.Toolbar__divider {
+  border-right: 1px solid hsl(0, 0, 85);
+  height: 40%;
+  margin: 0 8px;
 }

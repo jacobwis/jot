@@ -13,6 +13,9 @@
 @import 'components/menu';
 @import 'components/toolbar';
 
+// Utilities
+@import 'utilities/display';
+
 .TempWrapper {
   border-bottom: 1px solid hsl(0, 0, 90);
 }

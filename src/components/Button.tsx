@@ -2,6 +2,7 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 
 interface Props {
+  className?: string;
   iconLeft?: () => React.ReactNode;
   iconRight?: () => React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const Button: React.StatelessComponent<Props> = props => {
-  const classStr = classNames('Button', {
+  const classStr = classNames('Button', props.className, {
     'Button--primary': props.theme === 'primary',
     'Button--secondary': props.theme === 'secondary',
     'Button--solid': props.type === 'solid',

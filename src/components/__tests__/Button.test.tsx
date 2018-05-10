@@ -15,6 +15,12 @@ describe('<Button />', () => {
     expect(btn).toHaveText('Button Text');
   });
 
+  it('should pass "props.className" to the element', () => {
+    const btn = shallow(<Button className="CustomClass" />);
+
+    expect(btn).toHaveClassName('CustomClass');
+  });
+
   it('should render "props.iconLeft"', () => {
     const btn = shallow(<Button iconLeft={() => <i className="fas fa-search" />} />);
 

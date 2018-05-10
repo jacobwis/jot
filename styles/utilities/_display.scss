@@ -1,0 +1,17 @@
+$display-types: 'none', 'flex', 'inline-flex', 'block', 'inline-block', 'grid';
+
+@each $display-type in $display-types {
+  .display--#{$display-type} {
+    display: #{$display-type};
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @each $display-type in $display-types {
+    .display-#{$key}--#{$display-type} {
+      @include min-width(#{$key}) {
+        display: #{$display-type};
+      }
+    }
+  }
+}

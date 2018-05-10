@@ -4,7 +4,6 @@
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 8px 0;
-  min-width: 150px;
 }
 
 .MenuItem > * {
@@ -17,6 +16,7 @@
   padding: 8px 16px;
   text-align: left;
   user-select: none;
+  white-space: nowrap;
   width: 100%;
 
   &:hover {
