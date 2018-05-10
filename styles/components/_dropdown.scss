@@ -3,32 +3,6 @@
   position: relative;
 }
 
-.Dropdown__button {
-  background-color: transparent;
-  border: 0;
-  color: hsl(0, 0, 60);
-  font-size: 15px;
-  font-weight: 500;
-  padding: 8px 0;
-  user-select: none;
-
-  &:hover {
-    color: hsl(0, 0, 40);
-  }
-
-  &:active {
-    color: hsl(0, 0, 60);
-  }
-
-  &:focus {
-    outline: 0;
-  }
-}
-
-.Dropdown__button span {
-  margin-left: 6px;
-}
-
 .Dropdown__menu {
   position: absolute;
 }

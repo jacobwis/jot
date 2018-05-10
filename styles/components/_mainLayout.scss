@@ -1,0 +1,44 @@
+.MainLayout {
+  display: flex;
+  overflow-x: hidden;
+  position: relative;
+  height: 100vh;
+}
+
+.MainLayout__menu-area {
+  background-color: #fff;
+  width: 300px;
+}
+
+.MainLayout__content-area {
+  background-color: #fff;
+  border-left: 1px solid hsl(0, 0, 90);
+  flex: 1;
+  left: 0;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+
+  @include min-width('md') {
+    position: static;
+  }
+}
+
+.MainLayout__content-area--menu-visible {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.MainLayout__nav-area {
+  align-items: center;
+  border-bottom: 1px solid hsl(0, 0, 90);
+  display: flex;
+}
+
+.MainLayout__menu-toggle {
+  align-items: center;
+  background-color: hsl(0, 0, 90);
+  display: flex;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
+}

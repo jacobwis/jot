@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
-import Toolbar from './components/Toolbar';
+import MainLayout from './components/MainLayout';
 
 interface State {
   error?: Error;
@@ -29,15 +29,7 @@ class App extends React.Component<{}, State> {
         </div>
       );
     }
-    return (
-      <>
-        <div className="TempWrapper">
-          <div className="container">
-            <Toolbar />
-          </div>
-        </div>
-      </>
-    );
+    return <MainLayout />;
   }
 }
 
