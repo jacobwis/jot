@@ -1,4 +1,4 @@
-import { Editor, EditorState } from 'draft-js';
+import { ContentBlock, Editor, EditorState } from 'draft-js';
 import * as React from 'react';
 import { Document } from '../store';
 
@@ -7,6 +7,20 @@ interface Props {
   onTitleChange: (documentID: string, title: string) => void;
   onContentsChange: (documentID: string, contents: EditorState) => void;
 }
+
+const myBlockStyleFn = (contentBlock: ContentBlock) => {
+  const blockType = contentBlock.getType() as string;
+
+  if (blockType === 'align-right') {
+    return 'document--align-right';
+  }
+
+  if (blockType === 'align-center') {
+    return 'document--align-center';
+  }
+
+  return 'document--align-left';
+};
 
 const DocumentEditor: React.StatelessComponent<Props> = props => {
   return (
@@ -20,6 +34,7 @@ const DocumentEditor: React.StatelessComponent<Props> = props => {
         <Editor
           editorState={props.document.contents}
           onChange={newState => props.onContentsChange(props.document.id, newState)}
+          blockStyleFn={myBlockStyleFn}
         />
       </div>
     </div>

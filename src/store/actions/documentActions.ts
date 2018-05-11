@@ -1,7 +1,11 @@
 import { EditorState } from 'draft-js';
 import keys from '../constants';
 
-export type DocumentAction = UpdateDocumentContents | UpdateDocumentTitle | ToggleInlineStyle;
+export type DocumentAction =
+  | UpdateDocumentContents
+  | UpdateDocumentTitle
+  | ToggleInlineStyle
+  | ToggleBlockStyle;
 
 interface UpdateDocumentContents {
   type: keys.UPDATE_DOCUMENT_CONTENTS;
@@ -42,6 +46,18 @@ interface ToggleInlineStyle {
 export function toggleInlineStyle(style: string): ToggleInlineStyle {
   return {
     type: keys.TOGGLE_INLINE_STYLE,
+    style
+  };
+}
+
+interface ToggleBlockStyle {
+  type: keys.TOGGLE_BLOCK_STYLE;
+  style: string;
+}
+
+export function toggleBlockStyle(style: string): ToggleBlockStyle {
+  return {
+    type: keys.TOGGLE_BLOCK_STYLE,
     style
   };
 }

@@ -59,6 +59,20 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
           }
         }
       };
+    case keys.TOGGLE_BLOCK_STYLE:
+      return {
+        ...state,
+        documents: {
+          ...state.documents,
+          [state.selectedID]: {
+            ...state.documents[state.selectedID],
+            contents: RichUtils.toggleBlockType(
+              state.documents[state.selectedID].contents,
+              action.style
+            )
+          }
+        }
+      };
     default:
       return state;
   }

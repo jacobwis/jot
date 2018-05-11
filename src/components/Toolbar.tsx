@@ -87,7 +87,9 @@ interface Props {
   boldEnabled?: boolean;
   italicEnabled?: boolean;
   underlineEnabled?: boolean;
+  textAlign?: string;
   onToggleInlineStyle: (style: string) => void;
+  onToggleBlockStyle: (style: string) => void;
 }
 
 const Toolbar: React.StatelessComponent<Props> = props => {
@@ -149,35 +151,40 @@ const Toolbar: React.StatelessComponent<Props> = props => {
         <Dropdown options={alignOptionsMobile} />
       </div>
       <div className="display--none display-md--block">
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleBlockStyle('align-left');
+          }}
+          theme={props.textAlign === 'align-left' ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-align-left" />
         </Button>
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleBlockStyle('align-center');
+          }}
+          theme={props.textAlign === 'align-center' ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-align-center" />
         </Button>
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          theme={props.textAlign === 'align-right' ? 'primary' : 'secondary'}
+          type="link"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleBlockStyle('align-right');
+          }}
+        >
           <i className="far fa-fw fa-align-right" />
         </Button>
       </div>
-      {/* <div style={{ padding: '0' }}>
-        <button className="Toolbar__button">
-          <i className="far fa-fw fa-align-left" />
-        </button>
-        <button className="Toolbar__button">
-          <i className="far fa-fw fa-align-center" />
-        </button>
-        <button className="Toolbar__button">
-          <i className="far fa-fw fa-align-right" />
-        </button>
-      </div>
-      <div style={{ padding: '0' }}>
-        <button className="Toolbar__button">
-          <i className="far fa-fw fa-list-ol" />
-        </button>
-        <button className="Toolbar__button">
-          <i className="far fa-fw fa-list-ul" />
-        </button>
-      </div> */}
     </div>
   );
 };
