@@ -1,4 +1,4 @@
-import { EditorState } from 'draft-js';
+import { EditorState, RichUtils } from 'draft-js';
 import { DocumentAction } from '../actions/documentActions';
 import keys from '../constants';
 import { Document } from '../types';
@@ -42,6 +42,20 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
           [action.documentID]: {
             ...state.documents[action.documentID],
             contents: action.contents
+          }
+        }
+      };
+    case keys.TOGGLE_INLINE_STYLE:
+      return {
+        ...state,
+        documents: {
+          ...state.documents,
+          [state.selectedID]: {
+            ...state.documents[state.selectedID],
+            contents: RichUtils.toggleInlineStyle(
+              state.documents[state.selectedID].contents,
+              action.style
+            )
           }
         }
       };

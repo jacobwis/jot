@@ -16,7 +16,7 @@ const DocumentEditor: React.StatelessComponent<Props> = props => {
         onChange={e => props.onTitleChange(props.document.id, e.target.value)}
         value={props.document.title}
       />
-      <div>
+      <div className="DocumentEditor__contents">
         <Editor
           editorState={props.document.contents}
           onChange={newState => props.onContentsChange(props.document.id, newState)}

@@ -1,7 +1,7 @@
 import { EditorState } from 'draft-js';
 import keys from '../constants';
 
-export type DocumentAction = UpdateDocumentContents | UpdateDocumentTitle;
+export type DocumentAction = UpdateDocumentContents | UpdateDocumentTitle | ToggleInlineStyle;
 
 interface UpdateDocumentContents {
   type: keys.UPDATE_DOCUMENT_CONTENTS;
@@ -31,5 +31,17 @@ export function updateDocumentTitle(documentID: string, title: string): UpdateDo
     type: keys.UPDATE_DOCUMENT_TITLE,
     documentID,
     title
+  };
+}
+
+interface ToggleInlineStyle {
+  type: keys.TOGGLE_INLINE_STYLE;
+  style: string;
+}
+
+export function toggleInlineStyle(style: string): ToggleInlineStyle {
+  return {
+    type: keys.TOGGLE_INLINE_STYLE,
+    style
   };
 }

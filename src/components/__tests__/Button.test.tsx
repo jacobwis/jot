@@ -54,6 +54,16 @@ describe('<Button />', () => {
     expect(fn).toHaveBeenCalled();
   });
 
+  it('should call "props.onMouseDown" on mouseDown', () => {
+    const fn = jest.fn();
+
+    const btn = shallow(<Button onMouseDown={fn} />);
+
+    btn.simulate('mouseDown');
+
+    expect(fn).toHaveBeenCalled();
+  });
+
   it('"props.theme" should equal "primary" by default', () => {
     const btn = mount(<Button />);
 

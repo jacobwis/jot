@@ -1,7 +1,6 @@
 import * as React from 'react';
+import Toolbar from '../containers/ConnectedToolbar';
 import Button from './Button';
-import Toolbar from './Toolbar';
-
 interface State {
   menuVisible: boolean;
 }

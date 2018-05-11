@@ -1,4 +1,4 @@
-import { ContentState, EditorState, convertFromHTML } from 'draft-js';
+import { ContentState, EditorState, RichUtils, convertFromHTML } from 'draft-js';
 import keys from '../../constants';
 import documents, { initialState } from '../documents';
 
@@ -47,6 +47,24 @@ describe('documents reducer', () => {
           id: '1',
           title: 'Untitled Document',
           contents: newContents
+        }
+      }
+    });
+  });
+
+  it(`should handle ${keys.TOGGLE_INLINE_STYLE}`, () => {
+    const newState = documents(initialState, {
+      type: keys.TOGGLE_INLINE_STYLE,
+      style: 'BOLD'
+    });
+
+    expect(newState).toEqual({
+      selectedID: '1',
+      documents: {
+        '1': {
+          id: '1',
+          title: 'Untitled Document',
+          contents: RichUtils.toggleInlineStyle(initialState.documents['1'].contents, 'BOLD')
         }
       }
     });

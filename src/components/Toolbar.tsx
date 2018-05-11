@@ -83,7 +83,14 @@ const alignOptionsMobile = [
   }
 ];
 
-const Toolbar: React.StatelessComponent = () => {
+interface Props {
+  boldEnabled?: boolean;
+  italicEnabled?: boolean;
+  underlineEnabled?: boolean;
+  onToggleInlineStyle: (style: string) => void;
+}
+
+const Toolbar: React.StatelessComponent<Props> = props => {
   return (
     <div className="Toolbar">
       <div className="display--none display-md--block" style={{ width: '115px' }}>
@@ -94,13 +101,37 @@ const Toolbar: React.StatelessComponent = () => {
       </div>
       <div className="Toolbar__divider" />
       <div className="Toolbar__group">
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleInlineStyle('BOLD');
+          }}
+          theme={props.boldEnabled ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-bold" />
         </Button>
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleInlineStyle('ITALIC');
+          }}
+          theme={props.italicEnabled ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-italic" />
         </Button>
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleInlineStyle('UNDERLINE');
+          }}
+          theme={props.underlineEnabled ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-underline" />
         </Button>
       </div>

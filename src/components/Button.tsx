@@ -6,6 +6,7 @@ interface Props {
   iconLeft?: () => React.ReactNode;
   iconRight?: () => React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
   theme?: 'primary' | 'secondary';
   type?: 'solid' | 'outline' | 'link';
 }
@@ -20,7 +21,7 @@ const Button: React.StatelessComponent<Props> = props => {
   });
 
   return (
-    <button className={classStr} onClick={props.onClick}>
+    <button className={classStr} onClick={props.onClick} onMouseDown={props.onMouseDown}>
       {props.iconLeft && <span className="Button__icon-left">{props.iconLeft()}</span>}
       {props.children}
       {props.iconRight && <span className="Button__icon-right">{props.iconRight()}</span>}

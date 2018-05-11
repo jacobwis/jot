@@ -1,6 +1,6 @@
 import { ContentState, EditorState, convertFromHTML } from 'draft-js';
 import keys from '../../constants';
-import { updateDocumentContents, updateDocumentTitle } from '../documentActions';
+import { toggleInlineStyle, updateDocumentContents, updateDocumentTitle } from '../documentActions';
 
 describe('document actions', () => {
   it('should create an action to update a documents title', () => {
@@ -20,6 +20,13 @@ describe('document actions', () => {
       type: keys.UPDATE_DOCUMENT_CONTENTS,
       documentID: '1',
       contents: newContents
+    });
+  });
+
+  it('should create an action to toggle inline styles', () => {
+    expect(toggleInlineStyle('BOLD')).toEqual({
+      type: keys.TOGGLE_INLINE_STYLE,
+      style: 'BOLD'
     });
   });
 });
