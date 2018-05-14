@@ -88,6 +88,8 @@ interface Props {
   italicEnabled?: boolean;
   underlineEnabled?: boolean;
   textAlign?: string;
+  olEnabled?: boolean;
+  ulEnabled?: boolean;
   onToggleInlineStyle: (style: string) => void;
   onToggleBlockStyle: (style: string) => void;
 }
@@ -139,16 +141,38 @@ const Toolbar: React.StatelessComponent<Props> = props => {
       </div>
       <div className="Toolbar__divider" />
       <div className="Toolbar__group">
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleBlockStyle('ordered-list-item');
+          }}
+          theme={props.olEnabled ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-list-ol" />
         </Button>
-        <Button className="Toolbar__button" theme="secondary" type="link">
+        <Button
+          className="Toolbar__button"
+          onMouseDown={e => {
+            e.preventDefault();
+            props.onToggleBlockStyle('unordered-list-item');
+          }}
+          theme={props.ulEnabled ? 'primary' : 'secondary'}
+          type="link"
+        >
           <i className="far fa-fw fa-list-ul" />
         </Button>
       </div>
       <div className="Toolbar__divider" />
       <div className="display-md--none">
-        <Dropdown options={alignOptionsMobile} />
+        <Dropdown
+          options={alignOptionsMobile}
+          onSelect={option => {
+            props.onToggleBlockStyle(option.key);
+          }}
+          value={alignOptionsMobile.find(option => option.key === props.textAlign)}
+        />
       </div>
       <div className="display--none display-md--block">
         <Button

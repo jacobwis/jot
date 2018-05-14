@@ -10,7 +10,9 @@ const mapStateToProps = (state: AppState) => {
     boldEnabled: sel.boldEnabled(state),
     italicEnabled: sel.italicEnabled(state),
     underlineEnabled: sel.underlineEnabled(state),
-    textAlign: sel.currentTextAlign(state)
+    textAlign: sel.currentTextAlign(state),
+    olEnabled: sel.olEnabled(state),
+    ulEnabled: sel.ulEnabled(state)
   };
 };
 

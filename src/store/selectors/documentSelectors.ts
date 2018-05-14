@@ -36,3 +36,13 @@ export const currentTextAlign = createSelector(selectedDocumentContentsSelector,
     return blockType;
   }
 });
+
+export const olEnabled = createSelector(
+  selectedDocumentContentsSelector,
+  contents => RichUtils.getCurrentBlockType(contents) === 'ordered-list-item'
+);
+
+export const ulEnabled = createSelector(
+  selectedDocumentContentsSelector,
+  contents => RichUtils.getCurrentBlockType(contents) === 'unordered-list-item'
+);

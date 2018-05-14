@@ -19,6 +19,24 @@
   }
 }
 
+.DocumentEditor__contents ul,
+.DocumentEditor__contents ol {
+  padding-left: 20px;
+  margin: 16px 0;
+}
+
+.DocumentEditor__contents li {
+  margin-bottom: 8px;
+}
+
+.DocumentEditor__contents ol {
+  list-style: decimal;
+}
+
+.DocumentEditor__contents ul {
+  list-style-type: disc;
+}
+
 .document--align-left {
   text-align: left;
 }
