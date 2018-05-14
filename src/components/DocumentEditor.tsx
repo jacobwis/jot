@@ -4,10 +4,10 @@ import { Document } from '../store';
 import Button from './Button';
 
 interface Props {
-  document: Document;
-  onTitleChange: (documentID: string, title: string) => void;
-  onContentsChange: (documentID: string, contents: EditorState) => void;
-  onDeleteClick: (documentID: string) => void;
+  document?: Document;
+  onTitleChange?: (documentID: string, title: string) => void;
+  onContentsChange?: (documentID: string, contents: EditorState) => void;
+  onDeleteClick?: (documentID: string) => void;
 }
 
 const myBlockStyleFn = (contentBlock: ContentBlock) => {
@@ -25,6 +25,10 @@ const myBlockStyleFn = (contentBlock: ContentBlock) => {
 };
 
 const DocumentEditor: React.StatelessComponent<Props> = props => {
+  if (!props.document) {
+    return <div />;
+  }
+
   return (
     <div className="DocumentEditor">
       <input

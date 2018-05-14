@@ -6,14 +6,18 @@ import { toggleBlockStyle, toggleInlineStyle } from '../store/actions/documentAc
 import * as sel from '../store/selectors';
 
 const mapStateToProps = (state: AppState) => {
-  return {
-    boldEnabled: sel.boldEnabled(state),
-    italicEnabled: sel.italicEnabled(state),
-    underlineEnabled: sel.underlineEnabled(state),
-    textAlign: sel.currentTextAlign(state),
-    olEnabled: sel.olEnabled(state),
-    ulEnabled: sel.ulEnabled(state)
-  };
+  if (state.documents.selectedID) {
+    return {
+      boldEnabled: sel.boldEnabled(state),
+      italicEnabled: sel.italicEnabled(state),
+      underlineEnabled: sel.underlineEnabled(state),
+      textAlign: sel.currentTextAlign(state),
+      olEnabled: sel.olEnabled(state),
+      ulEnabled: sel.ulEnabled(state)
+    };
+  }
+
+  return {};
 };
 
 const mapDispatchToProps = (dispatch: any) => ({

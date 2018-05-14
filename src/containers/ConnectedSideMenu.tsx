@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 import SideMenu from '../components/SideMenu';
 import { AppState } from '../store';
-import { createDocument, selectDocument } from '../store/actions';
+import { createDocument, selectDocument, sortDocuments } from '../store/actions';
+import { documentArraySelector } from '../store/selectors';
 
 const mapStateToProps = (state: AppState) => {
   return {
-    documents: Object.keys(state.documents.documents).map(key => {
-      return state.documents.documents[key];
-    }),
+    documents: documentArraySelector(state),
     selectedID: state.documents.selectedID
   };
 };
@@ -21,6 +20,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   onNoteSelect: (id: string) => {
     dispatch(selectDocument(id));
+  },
+  onSortSelect: (sortBy: string) => {
+    dispatch(sortDocuments(sortBy));
   }
 });
 

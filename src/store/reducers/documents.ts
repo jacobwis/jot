@@ -4,27 +4,26 @@ import keys from '../constants';
 import { Document } from '../types';
 
 export interface DocumentsState {
-  selectedID: string;
+  selectedID?: string;
   documents: {
     [key: string]: Document;
   };
+  sortBy: string;
 }
 
-const defaultDocument = {
+export const defaultEditorState = EditorState.createEmpty();
+
+export const defaultDocument = {
   id: '1',
   title: 'Untitled Document',
-  contents: EditorState.createEmpty()
+  contents: defaultEditorState,
+  createdAt: new Date(),
+  updatedAt: new Date()
 };
 
 export const initialState: DocumentsState = {
-  selectedID: '1',
-  documents: {
-    '1': {
-      id: '1',
-      title: 'Untitled Document',
-      contents: EditorState.createEmpty()
-    }
-  }
+  documents: {},
+  sortBy: 'updated-at'
 };
 
 function documents(state: DocumentsState = initialState, action: DocumentAction) {
@@ -36,7 +35,8 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
           ...state.documents,
           [action.documentID]: {
             ...state.documents[action.documentID],
-            title: action.title
+            title: action.title,
+            updatedAt: new Date()
           }
         }
       };
@@ -47,7 +47,8 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
           ...state.documents,
           [action.documentID]: {
             ...state.documents[action.documentID],
-            contents: action.contents
+            contents: action.contents,
+            updatedAt: new Date()
           }
         }
       };
@@ -88,7 +89,9 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
           [action.id]: {
             id: action.id,
             title: 'Untitled Document',
-            contents: EditorState.createEmpty()
+            contents: EditorState.createEmpty(),
+            createdAt: new Date(),
+            updatedAt: new Date()
           }
         }
       };
@@ -98,7 +101,7 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
         selectedID: action.id
       };
     case keys.DELETE_DOCUMENT:
-      let newDocuments = Object.keys(state.documents).reduce((acc, key) => {
+      const newDocuments = Object.keys(state.documents).reduce((acc, key) => {
         if (key === action.id) {
           return {
             ...acc
@@ -110,18 +113,17 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
         };
       }, {});
 
-      if (Object.keys(newDocuments).length === 0) {
-        newDocuments = {
-          '1': defaultDocument
-        };
-      }
-
       const i = Object.keys(state.documents).indexOf(action.id);
       return {
         ...state,
         selectedID:
           action.id === state.selectedID ? Object.keys(newDocuments)[0] : state.selectedID,
         documents: newDocuments
+      };
+    case keys.SORT_DOCUMENTS:
+      return {
+        ...state,
+        sortBy: action.sortBy
       };
     default:
       return state;

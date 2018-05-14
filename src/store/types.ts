@@ -4,4 +4,6 @@ export interface Document {
   id: string;
   title: string;
   contents: EditorState;
+  createdAt: Date;
+  updatedAt: Date;
 }

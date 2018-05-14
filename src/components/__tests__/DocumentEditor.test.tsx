@@ -10,7 +10,9 @@ describe('<DocumentEditor />', () => {
     const document = {
       id: '1',
       title: '',
-      contents: EditorState.createEmpty()
+      contents: EditorState.createEmpty(),
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
 
     const wrap = shallow(
@@ -31,7 +33,9 @@ describe('<DocumentEditor />', () => {
     const document = {
       id: '1',
       title: '',
-      contents: EditorState.createEmpty()
+      contents: EditorState.createEmpty(),
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
     const onChange = jest.fn();
 

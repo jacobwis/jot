@@ -4,6 +4,7 @@ import {
   createDocument,
   deleteDocument,
   selectDocument,
+  sortDocuments,
   toggleBlockStyle,
   toggleInlineStyle,
   updateDocumentContents,
@@ -63,6 +64,13 @@ describe('document actions', () => {
     expect(deleteDocument('123')).toEqual({
       type: keys.DELETE_DOCUMENT,
       id: '123'
+    });
+  });
+
+  it('should create an action to sort documents', () => {
+    expect(sortDocuments('CREATED_AT')).toEqual({
+      type: keys.SORT_DOCUMENTS,
+      sortBy: 'CREATED_AT'
     });
   });
 });

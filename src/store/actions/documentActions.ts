@@ -5,6 +5,7 @@ export type DocumentAction =
   | CreateDocument
   | DeleteDocument
   | SelectDocument
+  | SortDocuments
   | UpdateDocumentContents
   | UpdateDocumentTitle
   | ToggleInlineStyle
@@ -98,5 +99,17 @@ export function deleteDocument(id: string): DeleteDocument {
   return {
     type: keys.DELETE_DOCUMENT,
     id
+  };
+}
+
+interface SortDocuments {
+  type: keys.SORT_DOCUMENTS;
+  sortBy: string;
+}
+
+export function sortDocuments(by: string): SortDocuments {
+  return {
+    type: keys.SORT_DOCUMENTS,
+    sortBy: by
   };
 }

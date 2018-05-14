@@ -7,7 +7,7 @@ export const selectedDocumentSelector = (state: AppState) =>
 
 export const selectedDocumentContentsSelector = createSelector(
   selectedDocumentSelector,
-  document => document.contents
+  document => (document ? document.contents : undefined)
 );
 
 export const currentInlineStylesSelector = createSelector(
@@ -46,3 +46,18 @@ export const ulEnabled = createSelector(
   selectedDocumentContentsSelector,
   contents => RichUtils.getCurrentBlockType(contents) === 'unordered-list-item'
 );
+
+export const documentArraySelector = (state: AppState) => {
+  const { sortBy, documents } = state.documents;
+  const unsorted = Object.keys(documents).map(key => documents[key]);
+
+  if (sortBy === 'created-at') {
+    return unsorted.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  if (sortBy === 'updated-at') {
+    return unsorted.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+  }
+
+  return unsorted;
+};

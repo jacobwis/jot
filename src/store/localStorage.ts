@@ -1,4 +1,4 @@
-import { convertToRaw, convertFromRaw, EditorState } from 'draft-js';
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 import { AppState } from './reducers';
 
 export const loadState = () => {
@@ -22,12 +22,14 @@ export const loadState = () => {
             ...acc,
             [key]: {
               ...document,
-              contents: EditorState.createWithContent(contentState)
+              contents: EditorState.createWithContent(contentState),
+              createdAt: new Date(document.createdAt),
+              updatedAt: new Date(document.updatedAt)
             }
-          }
+          };
         }, {})
       }
-    }
+    };
   } catch (err) {
     return undefined;
   }

@@ -2,18 +2,31 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 import { Document } from '../store';
 import Button from './Button';
+import Dropdown from './Dropdown';
+
+const sortOptions = [
+  {
+    key: 'updated-at',
+    label: 'Recently Updated'
+  },
+  {
+    key: 'created-at',
+    label: 'Recently Created'
+  }
+];
 
 interface Props {
   documents: Document[];
   selectedID: string;
   onNewNoteClick?: () => void;
   onNoteSelect?: (id: string) => void;
+  onSortSelect?: (sortBy: string) => void;
 }
 
 const SideMenu: React.StatelessComponent<Props> = props => (
   <div>
     <div className="SideMenu__row">
-      <div />
+      <Dropdown onSelect={option => props.onSortSelect(option.key)} options={sortOptions} />
       <Button onClick={props.onNewNoteClick}>New Note</Button>
     </div>
     <div className="DocumentList">

@@ -1,6 +1,15 @@
 import { ContentState, EditorState, RichUtils, convertFromHTML } from 'draft-js';
 import keys from '../../constants';
-import documents, { initialState } from '../documents';
+import documents, { defaultDocument, initialState } from '../documents';
+
+const stateWithDocument = {
+  ...initialState,
+  selectedID: defaultDocument.id,
+  documents: {
+    ...initialState.documents,
+    [defaultDocument.id]: defaultDocument
+  }
+};
 
 describe('documents reducer', () => {
   it('should return initial state', () => {
@@ -11,22 +20,13 @@ describe('documents reducer', () => {
   });
 
   it(`should handle ${keys.UPDATE_DOCUMENT_TITLE}`, () => {
-    const results = documents(initialState, {
+    const results = documents(stateWithDocument, {
       type: keys.UPDATE_DOCUMENT_TITLE,
       documentID: '1',
       title: 'New Value'
     });
 
-    expect(results).toEqual({
-      selectedID: '1',
-      documents: {
-        '1': {
-          id: '1',
-          title: 'New Value',
-          contents: initialState.documents['1'].contents
-        }
-      }
-    });
+    expect(results.documents['1'].title).toEqual('New Value');
   });
 
   it(`should handle ${keys.UPDATE_DOCUMENT_CONTENTS}`, () => {
@@ -34,40 +34,24 @@ describe('documents reducer', () => {
     const contentState = ContentState.createFromBlockArray(blocks.contentBlocks, blocks.entityMap);
     const newContents = EditorState.createWithContent(contentState);
 
-    const result = documents(initialState, {
+    const result = documents(stateWithDocument, {
       type: keys.UPDATE_DOCUMENT_CONTENTS,
       documentID: '1',
       contents: newContents
     });
 
-    expect(result).toEqual({
-      selectedID: '1',
-      documents: {
-        '1': {
-          id: '1',
-          title: 'Untitled Document',
-          contents: newContents
-        }
-      }
-    });
+    expect(result.documents['1'].contents).toEqual(newContents);
   });
 
   it(`should handle ${keys.TOGGLE_INLINE_STYLE}`, () => {
-    const newState = documents(initialState, {
+    const newState = documents(stateWithDocument, {
       type: keys.TOGGLE_INLINE_STYLE,
       style: 'BOLD'
     });
 
-    expect(newState).toEqual({
-      selectedID: '1',
-      documents: {
-        '1': {
-          id: '1',
-          title: 'Untitled Document',
-          contents: RichUtils.toggleInlineStyle(initialState.documents['1'].contents, 'BOLD')
-        }
-      }
-    });
+    expect(newState.documents['1'].contents).toEqual(
+      RichUtils.toggleInlineStyle(stateWithDocument.documents['1'].contents, 'BOLD')
+    );
   });
 
   it(`should handle ${keys.NEW_DOCUMENT}`, () => {
@@ -76,7 +60,7 @@ describe('documents reducer', () => {
       id: '123'
     });
 
-    expect(newState).toEqual({
+    expect(newState).toMatchObject({
       selectedID: '123',
       documents: {
         ...initialState.documents,
@@ -97,7 +81,9 @@ describe('documents reducer', () => {
         '123': {
           id: '123',
           title: 'Untitled Document',
-          contents: EditorState.createEmpty()
+          contents: EditorState.createEmpty(),
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       }
     };
@@ -121,7 +107,9 @@ describe('documents reducer', () => {
         '123': {
           id: '123',
           title: 'Untitled Document',
-          contents: EditorState.createEmpty()
+          contents: EditorState.createEmpty(),
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       }
     };
@@ -134,35 +122,12 @@ describe('documents reducer', () => {
     expect(newState).toEqual(initialState);
   });
 
-  it(`should handle ${
-    keys.DELETE_DOCUMENT
-  } whene the document being deleted is currently selected`, () => {
-    const firstState = {
-      ...initialState,
-      documents: {
-        ...initialState.documents,
-        '123': {
-          id: '123',
-          title: 'Untitled Document',
-          contents: EditorState.createEmpty()
-        }
-      }
-    };
-
-    const newState = documents(firstState, {
-      type: keys.DELETE_DOCUMENT,
-      id: initialState.selectedID
+  it(`should handle ${keys.SORT_DOCUMENTS}`, () => {
+    const newState = documents(initialState, {
+      type: keys.SORT_DOCUMENTS,
+      sortBy: 'UPDATED_AT'
     });
 
-    expect(newState).toEqual({
-      selectedID: '123',
-      documents: {
-        '123': {
-          id: '123',
-          title: 'Untitled Document',
-          contents: firstState.documents['123'].contents
-        }
-      }
-    });
+    expect(newState.sortBy).toEqual('UPDATED_AT');
   });
 });
