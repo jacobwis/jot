@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import DocumentEditor from '../components/DocumentEditor';
 import { AppState } from '../store';
-import { updateDocumentContents, updateDocumentTitle } from '../store/actions';
+import { deleteDocument, updateDocumentContents, updateDocumentTitle } from '../store/actions';
 
 const mapStateToProps = (state: AppState) => ({
   document: state.documents.documents[state.documents.selectedID]
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   onContentsChange: (documentID: string, contents: EditorState) => {
     dispatch(updateDocumentContents(documentID, contents));
+  },
+  onDeleteClick: (documentID: string) => {
+    dispatch(deleteDocument(documentID));
   }
 });
 

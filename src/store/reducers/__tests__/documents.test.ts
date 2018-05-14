@@ -69,4 +69,100 @@ describe('documents reducer', () => {
       }
     });
   });
+
+  it(`should handle ${keys.NEW_DOCUMENT}`, () => {
+    const newState = documents(initialState, {
+      type: keys.NEW_DOCUMENT,
+      id: '123'
+    });
+
+    expect(newState).toEqual({
+      selectedID: '123',
+      documents: {
+        ...initialState.documents,
+        '123': {
+          id: '123',
+          title: 'Untitled Document',
+          contents: newState.documents['123'].contents
+        }
+      }
+    });
+  });
+
+  it(`should handle ${keys.SELECT_DOCUMENT}`, () => {
+    const firstState = {
+      ...initialState,
+      documents: {
+        ...initialState.documents,
+        '123': {
+          id: '123',
+          title: 'Untitled Document',
+          contents: EditorState.createEmpty()
+        }
+      }
+    };
+
+    const newState = documents(firstState, {
+      type: keys.SELECT_DOCUMENT,
+      id: '123'
+    });
+
+    expect(newState).toEqual({
+      ...firstState,
+      selectedID: '123'
+    });
+  });
+
+  it(`should handle ${keys.DELETE_DOCUMENT}`, () => {
+    const firstState = {
+      ...initialState,
+      documents: {
+        ...initialState.documents,
+        '123': {
+          id: '123',
+          title: 'Untitled Document',
+          contents: EditorState.createEmpty()
+        }
+      }
+    };
+
+    const newState = documents(firstState, {
+      type: keys.DELETE_DOCUMENT,
+      id: '123'
+    });
+
+    expect(newState).toEqual(initialState);
+  });
+
+  it(`should handle ${
+    keys.DELETE_DOCUMENT
+  } whene the document being deleted is currently selected`, () => {
+    const firstState = {
+      ...initialState,
+      documents: {
+        ...initialState.documents,
+        '123': {
+          id: '123',
+          title: 'Untitled Document',
+          contents: EditorState.createEmpty()
+        }
+      }
+    };
+
+    const newState = documents(firstState, {
+      type: keys.DELETE_DOCUMENT,
+      id: initialState.selectedID
+    });
+
+    expect(newState).toEqual({
+      selectedID: '123',
+      documents: {
+        '123': {
+          id: '123',
+          title: 'Untitled Document',
+          contents: firstState.documents['123'].contents
+        }
+      }
+    });
+  });
 });

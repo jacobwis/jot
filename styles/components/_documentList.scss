@@ -1,0 +1,30 @@
+.DocumentList__item {
+  background-color: #fff;
+  border-bottom: 1px solid hsl(0, 0, 90);
+  padding: 16px 12px;
+  user-select: none;
+
+  @include hover {
+    background-color: hsl(0, 0, 95);
+  }
+
+  @include active {
+    background-color: #fff;
+  }
+}
+
+.DocumentList__item--selected {
+  background-color: hsl(0, 0, 95);
+}
+
+.DocumentList__title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.DocumentList__contents {
+  color: hsl(0, 0, 60);
+  font-size: 14px;
+  line-height: 1.2;
+}

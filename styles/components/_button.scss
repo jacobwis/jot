@@ -19,6 +19,11 @@
   --hover-color: #{hsl(0, 0, 60)};
 }
 
+.Button--danger {
+  --main-color: #f75c46;
+  --hover-color: #{shade(#f75c46, 5)};
+}
+
 .Button--solid {
   border: 0;
   background-color: var(--main-color);
@@ -70,4 +75,8 @@
 
 .Button__icon-right {
   margin-left: 8px;
+}
+
+.Button--round {
+  border-radius: 100px;
 }

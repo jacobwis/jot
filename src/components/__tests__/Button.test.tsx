@@ -64,6 +64,12 @@ describe('<Button />', () => {
     expect(fn).toHaveBeenCalled();
   });
 
+  it('should have the class "Button--round" if "props.round" equals true', () => {
+    const btn = shallow(<Button round />);
+
+    expect(btn).toHaveClassName('Button--round');
+  });
+
   it('"props.theme" should equal "primary" by default', () => {
     const btn = mount(<Button />);
 
@@ -80,6 +86,12 @@ describe('<Button />', () => {
     const btn = shallow(<Button theme="secondary" />);
 
     expect(btn).toHaveClassName('Button--secondary');
+  });
+
+  it('when "props.theme" equals "danger", the element should have the class "Button--danger"', () => {
+    const btn = shallow(<Button theme="danger" />);
+
+    expect(btn).toHaveClassName('Button--danger');
   });
 
   it('"props.type" should equal "solid" by default', () => {

@@ -1,6 +1,8 @@
 import * as React from 'react';
+import SideMenu from '../containers/ConnectedSideMenu';
 import Toolbar from '../containers/ConnectedToolbar';
 import Button from './Button';
+
 interface State {
   menuVisible: boolean;
 }
@@ -74,7 +76,7 @@ class MainLayout extends React.Component<{}, State> {
     return (
       <div className="MainLayout">
         <div className="MainLayout__menu-area" ref={this.menuArea}>
-          Menu Area
+          <SideMenu />
         </div>
         <div className={contentClass} ref={this.contentArea}>
           <div className="MainLayout__nav-area">

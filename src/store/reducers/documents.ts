@@ -10,6 +10,12 @@ export interface DocumentsState {
   };
 }
 
+const defaultDocument = {
+  id: '1',
+  title: 'Untitled Document',
+  contents: EditorState.createEmpty()
+};
+
 export const initialState: DocumentsState = {
   selectedID: '1',
   documents: {
@@ -72,6 +78,50 @@ function documents(state: DocumentsState = initialState, action: DocumentAction)
             )
           }
         }
+      };
+    case keys.NEW_DOCUMENT:
+      return {
+        ...state,
+        selectedID: action.id,
+        documents: {
+          ...state.documents,
+          [action.id]: {
+            id: action.id,
+            title: 'Untitled Document',
+            contents: EditorState.createEmpty()
+          }
+        }
+      };
+    case keys.SELECT_DOCUMENT:
+      return {
+        ...state,
+        selectedID: action.id
+      };
+    case keys.DELETE_DOCUMENT:
+      let newDocuments = Object.keys(state.documents).reduce((acc, key) => {
+        if (key === action.id) {
+          return {
+            ...acc
+          };
+        }
+        return {
+          ...acc,
+          [key]: state.documents[key]
+        };
+      }, {});
+
+      if (Object.keys(newDocuments).length === 0) {
+        newDocuments = {
+          '1': defaultDocument
+        };
+      }
+
+      const i = Object.keys(state.documents).indexOf(action.id);
+      return {
+        ...state,
+        selectedID:
+          action.id === state.selectedID ? Object.keys(newDocuments)[0] : state.selectedID,
+        documents: newDocuments
       };
     default:
       return state;

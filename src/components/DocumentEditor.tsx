@@ -1,11 +1,13 @@
 import { ContentBlock, Editor, EditorState } from 'draft-js';
 import * as React from 'react';
 import { Document } from '../store';
+import Button from './Button';
 
 interface Props {
   document: Document;
   onTitleChange: (documentID: string, title: string) => void;
   onContentsChange: (documentID: string, contents: EditorState) => void;
+  onDeleteClick: (documentID: string) => void;
 }
 
 const myBlockStyleFn = (contentBlock: ContentBlock) => {
@@ -30,6 +32,11 @@ const DocumentEditor: React.StatelessComponent<Props> = props => {
         onChange={e => props.onTitleChange(props.document.id, e.target.value)}
         value={props.document.title}
       />
+      <div className="DocumentEditor__options">
+        <Button type="link" theme="danger" onClick={() => props.onDeleteClick(props.document.id)}>
+          Delete
+        </Button>
+      </div>
       <div className="DocumentEditor__contents">
         <Editor
           editorState={props.document.contents}

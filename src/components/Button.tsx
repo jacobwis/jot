@@ -7,14 +7,17 @@ interface Props {
   iconRight?: () => React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
-  theme?: 'primary' | 'secondary';
+  round?: boolean;
+  theme?: 'primary' | 'secondary' | 'danger';
   type?: 'solid' | 'outline' | 'link';
 }
 
 const Button: React.StatelessComponent<Props> = props => {
   const classStr = classNames('Button', props.className, {
+    'Button--round': props.round,
     'Button--primary': props.theme === 'primary',
     'Button--secondary': props.theme === 'secondary',
+    'Button--danger': props.theme === 'danger',
     'Button--solid': props.type === 'solid',
     'Button--outline': props.type === 'outline',
     'Button--link': props.type === 'link'

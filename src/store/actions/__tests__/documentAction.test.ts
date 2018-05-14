@@ -1,6 +1,9 @@
 import { ContentState, EditorState, convertFromHTML } from 'draft-js';
 import keys from '../../constants';
 import {
+  createDocument,
+  deleteDocument,
+  selectDocument,
   toggleBlockStyle,
   toggleInlineStyle,
   updateDocumentContents,
@@ -39,6 +42,27 @@ describe('document actions', () => {
     expect(toggleBlockStyle('align-left')).toEqual({
       type: keys.TOGGLE_BLOCK_STYLE,
       style: 'align-left'
+    });
+  });
+
+  it('should create an action to create a new document', () => {
+    expect(createDocument('123')).toEqual({
+      type: keys.NEW_DOCUMENT,
+      id: '123'
+    });
+  });
+
+  it('should create an action to select a document', () => {
+    expect(selectDocument('123')).toEqual({
+      type: keys.SELECT_DOCUMENT,
+      id: '123'
+    });
+  });
+
+  it('should create an action to delete a document', () => {
+    expect(deleteDocument('123')).toEqual({
+      type: keys.DELETE_DOCUMENT,
+      id: '123'
     });
   });
 });
