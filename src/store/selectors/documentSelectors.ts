@@ -2,6 +2,8 @@ import { RichUtils } from 'draft-js';
 import { createSelector } from 'reselect';
 import { AppState } from '../reducers';
 
+export const documentStateSelector = (state: AppState) => state.documents;
+
 export const selectedDocumentSelector = (state: AppState) =>
   state.documents.documents[state.documents.selectedID];
 
@@ -47,8 +49,9 @@ export const ulEnabled = createSelector(
   contents => RichUtils.getCurrentBlockType(contents) === 'unordered-list-item'
 );
 
-export const documentArraySelector = (state: AppState) => {
-  const { sortBy, documents } = state.documents;
+export const documentArraySelector = createSelector(documentStateSelector, state => {
+  const { sortBy, documents } = state;
+
   const unsorted = Object.keys(documents).map(key => documents[key]);
 
   if (sortBy === 'created-at') {
@@ -60,4 +63,4 @@ export const documentArraySelector = (state: AppState) => {
   }
 
   return unsorted;
-};
+});
