@@ -4,6 +4,10 @@ import Dropdown from './Dropdown';
 
 const blockOptions = [
   {
+    key: 'paragraph',
+    label: 'Paragraph'
+  },
+  {
     key: 'header-one',
     label: 'Header One'
   },
@@ -14,10 +18,6 @@ const blockOptions = [
   {
     key: 'header-three',
     label: 'Header Three'
-  },
-  {
-    key: 'paragraph',
-    label: 'Paragraph'
   }
 ];
 
@@ -84,6 +84,7 @@ const alignOptionsMobile = [
 ];
 
 interface Props {
+  currentBlockType?: string;
   boldEnabled?: boolean;
   italicEnabled?: boolean;
   underlineEnabled?: boolean;
@@ -97,8 +98,18 @@ interface Props {
 const Toolbar: React.StatelessComponent<Props> = props => {
   return (
     <div className="Toolbar">
-      <div className="display--none display-md--block" style={{ width: '115px' }}>
-        <Dropdown options={blockOptions} />
+      <div
+        className="display--none display-md--block"
+        onMouseDown={e => {
+          e.preventDefault();
+        }}
+        style={{ width: '115px' }}
+      >
+        <Dropdown
+          onSelect={option => props.onToggleBlockStyle(option.key)}
+          options={blockOptions}
+          value={blockOptions.find(option => option.key === props.currentBlockType)}
+        />
       </div>
       <div className="display-md--none">
         <Dropdown options={blockOptionsMobile} />
@@ -162,51 +173,6 @@ const Toolbar: React.StatelessComponent<Props> = props => {
           type="link"
         >
           <i className="far fa-fw fa-list-ul" />
-        </Button>
-      </div>
-      <div className="Toolbar__divider" />
-      <div className="display-md--none">
-        <Dropdown
-          options={alignOptionsMobile}
-          onSelect={option => {
-            props.onToggleBlockStyle(option.key);
-          }}
-          value={alignOptionsMobile.find(option => option.key === props.textAlign)}
-        />
-      </div>
-      <div className="display--none display-md--block">
-        <Button
-          className="Toolbar__button"
-          onMouseDown={e => {
-            e.preventDefault();
-            props.onToggleBlockStyle('align-left');
-          }}
-          theme={props.textAlign === 'align-left' ? 'primary' : 'secondary'}
-          type="link"
-        >
-          <i className="far fa-fw fa-align-left" />
-        </Button>
-        <Button
-          className="Toolbar__button"
-          onMouseDown={e => {
-            e.preventDefault();
-            props.onToggleBlockStyle('align-center');
-          }}
-          theme={props.textAlign === 'align-center' ? 'primary' : 'secondary'}
-          type="link"
-        >
-          <i className="far fa-fw fa-align-center" />
-        </Button>
-        <Button
-          className="Toolbar__button"
-          theme={props.textAlign === 'align-right' ? 'primary' : 'secondary'}
-          type="link"
-          onMouseDown={e => {
-            e.preventDefault();
-            props.onToggleBlockStyle('align-right');
-          }}
-        >
-          <i className="far fa-fw fa-align-right" />
         </Button>
       </div>
     </div>

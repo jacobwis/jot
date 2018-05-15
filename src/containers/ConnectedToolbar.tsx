@@ -13,7 +13,8 @@ const mapStateToProps = (state: AppState) => {
       underlineEnabled: sel.underlineEnabled(state),
       textAlign: sel.currentTextAlign(state),
       olEnabled: sel.olEnabled(state),
-      ulEnabled: sel.ulEnabled(state)
+      ulEnabled: sel.ulEnabled(state),
+      currentBlockType: sel.currentBlockType(state)
     };
   }
 

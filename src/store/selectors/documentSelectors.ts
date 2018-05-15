@@ -39,6 +39,16 @@ export const currentTextAlign = createSelector(selectedDocumentContentsSelector,
   }
 });
 
+export const currentBlockType = createSelector(selectedDocumentContentsSelector, contents => {
+  const blockType = RichUtils.getCurrentBlockType(contents) as string;
+
+  if (blockType === 'header-one' || blockType === 'header-two' || blockType === 'header-three') {
+    return blockType;
+  }
+
+  return 'paragraph';
+});
+
 export const olEnabled = createSelector(
   selectedDocumentContentsSelector,
   contents => RichUtils.getCurrentBlockType(contents) === 'ordered-list-item'

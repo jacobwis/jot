@@ -24,6 +24,12 @@ const myBlockStyleFn = (contentBlock: ContentBlock) => {
   return 'document--align-left';
 };
 
+const styleMap = {
+  'header-one': {
+    color: 'red'
+  }
+};
+
 const DocumentEditor: React.StatelessComponent<Props> = props => {
   if (!props.document) {
     return <div />;
@@ -46,6 +52,7 @@ const DocumentEditor: React.StatelessComponent<Props> = props => {
           editorState={props.document.contents}
           onChange={newState => props.onContentsChange(props.document.id, newState)}
           blockStyleFn={myBlockStyleFn}
+          customStyleMap={styleMap}
         />
       </div>
     </div>
