@@ -4,6 +4,9 @@ module.exports = {
     require('mq4-hover-shim').postprocessorFor({
       hoverSelectorPrefix: '.true-hover '
     }),
-    require('postcss-font-family-system-ui')
+    require('postcss-font-family-system-ui'),
+    require('cssnano')({
+      preset: 'default'
+    })
   ]
 };

@@ -1,6 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+
+const ENV = process.env.NODE_ENV;
+const IS_PROD = ENV === 'production';
 
 module.exports = {
   devServer: {
@@ -12,7 +16,7 @@ module.exports = {
     port: 3000
   },
   entry: './src/index.tsx',
-  mode: 'development',
+  mode: IS_PROD ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -22,7 +26,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
+          IS_PROD ? MiniCSSExtractPlugin.loader : 'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader',
           'sass-loader'
@@ -39,7 +43,10 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: 'index.html'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCSSExtractPlugin({
+      filename: 'styles.css'
+    })
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
